@@ -21,7 +21,10 @@ const Login = () => {
         state: 'Internal',
       });
       const token = response.data.accessToken;
-      dispatch(login(token));
+      dispatch(login({
+        username,
+        token
+      }));
       localStorage.setItem('token', token); // сохраняем токен в localStorage
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // добавляем токен в заголовки axios
       navigate('/tasks'); // перенаправляем на страницу с задачами

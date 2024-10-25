@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Todo {
-  id: string;
+  id?: string;
   title: string;
-  description: string;
-  completed: boolean;
+  description?: string;
+  isCompleted?: boolean;
   dueDate: string;
 }
 
@@ -32,14 +32,25 @@ const todoSlice = createSlice({
         state.todos[index] = action.payload;
       }
     },
+    updateTodos(state, action: PayloadAction<Todo[]>) {
+        //можно добавить разные проверки
+        state.todos = action.payload;
+    },
+    deleteTodo(state, action: PayloadAction<Todo>) {
+        //можно оптимизировать, для тестового думаю достаточно
+        const index = state.todos.findIndex(todo => todo.id === action.payload.id);
+        if (index !== -1) {
+            state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
+        }
+    },
     toggleTodoCompletion(state, action: PayloadAction<string>) {
       const todo = state.todos.find(todo => todo.id === action.payload);
       if (todo) {
-        todo.completed = !todo.completed;
+        todo.isCompleted = !todo.isCompleted;
       }
     },
   },
 });
 
-export const { setTodos, addTodo, updateTodo, toggleTodoCompletion } = todoSlice.actions;
+export const { setTodos, addTodo, updateTodo, updateTodos, deleteTodo, toggleTodoCompletion } = todoSlice.actions;
 export default todoSlice.reducer;
