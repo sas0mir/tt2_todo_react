@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import TodoPage from './components/TodoPage';
+import SignUp from './components/SignUp';
 
 // Функция проверки авторизации
 const isAuthenticated = () => {
@@ -21,6 +22,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route
           path="/tasks"
           element={
